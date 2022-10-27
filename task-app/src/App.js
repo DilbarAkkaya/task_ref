@@ -5,6 +5,10 @@ import './App.css';
 class Form extends Component {
   constructor(props) {
     super(props);
+    this.myRef = React.createRef();
+  }
+  componentDidMount(){
+    this.myRef.current.focus();
   }
   render(){
     return (
@@ -12,7 +16,7 @@ class Form extends Component {
         <form className='w-50 border mt-5 p-3 m-auto'>
           <div className='mb-3'>
             <label htmlFor='exampleFormControlInput1' className='form-label'>Email address</label>
-            <input type='email' className='form-control' id='exampleFormControlInput1'
+            <input ref={this.myRef} type='email' className='form-control' id='exampleFormControlInput1'
             placeholder='name@example.com'/>
           </div>
           <div className='mb-3'>
