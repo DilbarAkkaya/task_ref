@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
-import  ReactDOM  from 'react-dom';
+import ReactDOM from 'react-dom';
 import { Container } from 'react-bootstrap';
 import './App.css';
 
 class Form extends Component {
-  //myRef = React.createRef();
+  state = {
+    advOpen: false
+  }
 
-  /*   componentDidMount(){
-      this.myRef.current.focus();
-    } */
+  handleClick = () => {
+    this.setState(({ advOpen }) => ({
+      advOpen: !advOpen
+    })
+    )
+  }
 
+  componentDidMount() {
+    setTimeout(this.handleClick, 3000)
+    console.log(111)
+  }
   setInputRef = elem => {
     this.myRef = elem;
   }
@@ -18,10 +27,11 @@ class Form extends Component {
       this.myRef.focus();
     }
   }
+
   render() {
     return (
       <Container>
-        <form className='w-50 border mt-5 p-3 m-auto'>
+        <form onClick={this.handleClick} className='w-50 border mt-5 p-3 m-auto'>
           <div className='mb-3'>
             <label htmlFor='exampleFormControlInput1' className='form-label'>Email address</label>
             <input ref={this.setInputRef} type='email' className='form-control' id='exampleFormControlInput1'
@@ -31,9 +41,12 @@ class Form extends Component {
             <label htmlFor='exampleFormControlTextarea1' className='form-label'>Example textarea</label>
             <textarea onClick={this.focusFirstTI} className='form-control' id='exampleFormControlTextarea1' rows='3'></textarea>
           </div>
-          <Portal>
-            <Msg />
-          </Portal>
+          {
+            this.state.advOpen ?
+              <Portal>
+                <Msg />
+              </Portal> : null
+          }
         </form>
       </Container>
     )
